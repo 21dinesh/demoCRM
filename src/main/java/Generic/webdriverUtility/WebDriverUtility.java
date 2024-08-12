@@ -4,20 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
-import javax.xml.crypto.KeySelector;
-
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -81,9 +74,14 @@ public class WebDriverUtility {
 		driver.switchTo().alert().dismiss();
 	}
 	//11
-	public void select(WebElement element,String li) {
+	public void selectByValue(WebElement element,String li) {
 		Select sel=new Select(element);
 		sel.selectByVisibleText(li);
+	}
+	
+	public void selectByIndex(WebElement element,int li) {
+		Select sel=new Select(element);
+		sel.selectByIndex(li);
 	}
 	//12
 	public void selectMultiple(WebElement element,ArrayList<String> text) {
@@ -161,6 +159,10 @@ public class WebDriverUtility {
 		File srcfile = ts.getScreenshotAs(OutputType.FILE);
 		File desfile=new File(dest);
 		FileHandler.copy(srcfile, desfile);
+	}
+	public void switchToWindowOnUrl(WebDriver driver, String string) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 //	public void openBrowser(WebDriver driver, String browser) {

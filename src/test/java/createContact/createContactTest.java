@@ -1,29 +1,29 @@
 package createContact;
 
-import java.io.IOException;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import com.crm.generic.baseutility.BaseClass;
 
-import objectRepo.ContactInfoPage;
-import objectRepo.CreateNewOrganizationPage;
-import objectRepo.HomePage;
-import objectRepo.OrganizationInfoPage;
-import objectRepo.OrganizationPage;
+import objectrepositoryutility.ContactInfoPage;
+import objectrepositoryutility.ContactsPage;
+import objectrepositoryutility.CreateNewContactPage;
+import objectrepositoryutility.CreateNewOrganizationPage;
+import objectrepositoryutility.HomePage;
+import objectrepositoryutility.OrganizationInfoPage;
+import objectrepositoryutility.OrganizationsPage;
 
 public class createContactTest extends BaseClass {
 	
-	@Test(groups= "smokeTest")
-	public createContactTest() throws IOException, InterruptedException {
+	//@Test(groups = "regressionTest")
+	public createContactTest() throws Exception {
 	// read test script data from excel file
-			String lastName = eLib.getDataFromExcel("contact", 1, 2) + jLib.getRandomNumber();
+			String lastName = eLib.getDataFromExcel("contact", 1, 2) + jLib.getRandomNum(131);
 
 			// Step 2: Navigate to Contacts module
 			HomePage hp = new HomePage(driver);
-			hp.getContacts().click();
+			hp.getContactsLink().click();
 
 			// Step 3: Click on "Create Contact" button
 			ContactsPage cp = new ContactsPage(driver);
@@ -48,24 +48,25 @@ public class createContactTest extends BaseClass {
 		}
 		
 		@Test(groups = "regressionTest")
-		public void createContactWithSupportDateTest() throws IOException, InterruptedException {
+		public void createContactWithSupportDateTest() throws Exception {
 
 			// read test script data from excel file
-			String lastName = eLib.getDataFromExcel("contact", 1, 2) + jLib.getRandomNum(90);
+			String l= eLib.getDataFromExcel("contact", 1, 2 );
+			String lastName =l+ jLib.getRandomNum(133);
 
 			// Step 2: Navigate to Contacts module
 			HomePage hp = new HomePage(driver);
-			hp.getContacts().click();
+			hp.getContactsLink().click();
 
 			// Step 3: Click on "Create Contact" button
-			Contacts cp = new ContactsPage(driver);
+			ContactsPage cp = new ContactsPage(driver);
 			cp.getCreateNewContactBtn().click();
 
 			// Step 4: Create new Contact
 			CreateNewContactPage cnc = new CreateNewContactPage(driver);
 
-			String startDate = jLib.getSystemDate(startDate);
-			String endDate = jLib.getRequiredDate(endDate, 30);
+			String startDate = jLib.getSystemDate(jLib.getSystemDate("dd-MM-yyyy"));
+			String endDate = jLib.getRequiredDate(jLib.getSystemDate("dd-MM-yyyy"), 30);
 
 			// Business Logic
 			cnc.createContactWithSupportDate(lastName, startDate, endDate);
@@ -92,16 +93,16 @@ public class createContactTest extends BaseClass {
 		public void createContactWithOrgTest() throws Throwable {
 
 			// read test script data from excel file
-			String orgName = eLib.getDataFromExcel("contact", 7, 2) + jLib.getRandomNumber();
-			String lastName = eLib.getDataFromExcel("contact", 7, 3) + jLib.getRandomNumber();
+			String orgName = eLib.getDataFromExcel("contact", 7, 2) + jLib.getRandomNum(121);
+			String lastName = eLib.getDataFromExcel("contact", 7, 3) +  jLib.getRandomNum(121);
 
 			// Step 2: Navigate to Organization page
 			HomePage hp = new HomePage(driver);
 			hp.getOrgLink().click();
 
 			// Step 3: Click on "Create Organization" button
-			OrganizationPage op = new OrganizationPage(driver);
-			op.getCreateOrganizationbtn().click();
+			OrganizationsPage op = new OrganizationsPage(driver);
+			op.getCreateNewOrgBtn().click();
  
 			// Step 4: Create new Organization
 			CreateNewOrganizationPage cno = new CreateNewOrganizationPage(driver);
@@ -110,7 +111,7 @@ public class createContactTest extends BaseClass {
 
 			// Verify Header msg Expected Result
 			OrganizationInfoPage oip = new OrganizationInfoPage(driver);
-			String headerMsg = oip.getOrgHeader().getText();
+			String headerMsg = oip.getHeaderMsg().getText();
 			if (headerMsg.contains(orgName)) {
 				System.out.println(orgName + " is created == PASS");
 			} else {
@@ -118,7 +119,7 @@ public class createContactTest extends BaseClass {
 			}
 
 			// Step 6: Navigate to Contacts module
-			hp.getContacts().click();
+			hp.getContactsLink().click();
 
 			// Step 8: Click on "Create Contact" button
 			ContactsPage cp = new ContactsPage(driver);

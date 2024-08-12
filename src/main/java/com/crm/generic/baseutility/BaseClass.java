@@ -19,13 +19,13 @@ import Generic.fileUtility.ExcelUtility;
 import Generic.fileUtility.FileUtility;
 import Generic.webdriverUtility.JavaUtility;
 import Generic.webdriverUtility.WebDriverUtility;
-import objectRepo.HomePage;
-import objectRepo.LoginPage;
+import objectrepositoryutility.HomePage;
+import objectrepositoryutility.LoginPage;
 
 
 public class BaseClass {
-  	public WebDriver driver = null;
-  	public static WebDriver sdriver =null;
+  	public WebDriver driver;
+  	public static WebDriver sdriver;
 	public DataBaseUtility dbLib = new DataBaseUtility();
 	public FileUtility fLib= new FileUtility();
 	public ExcelUtility eLib = new ExcelUtility();
@@ -56,14 +56,12 @@ public class BaseClass {
 	}
 	@BeforeMethod(groups= {"smokeTest", "regresstionTest"})
 	    public void configBM() throws Throwable {
-		System.out.println(" == login to the application== ");
-		LoginPage lp = new LoginPage(driver);
-		
+		System.out.println(" == login to the application== ");		
 		String URL = fLib.getDataFromPropertiesFile("url");
 		String USERNAME = fLib.getDataFromPropertiesFile("username");
 		String PASSWORD = fLib.getDataFromPropertiesFile("password");		
-	
-		lp.LoginToApp(URL, USERNAME, PASSWORD);		
+		LoginPage lp = new LoginPage( driver);
+		lp.loginToApp(URL, USERNAME, PASSWORD);		
     }  
    @Test 
 	public void CreateContact(){
@@ -77,7 +75,7 @@ public class BaseClass {
 	 public void confiAM() {
 		 System.out.println("logout from application");
 		 HomePage hp = new HomePage(driver);
-		 hp.getSignOut();
+		 hp.getSignOutLink();
 	 }
 	 @AfterClass
 		public void configAC() {

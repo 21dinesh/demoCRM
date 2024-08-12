@@ -1,4 +1,4 @@
-package com.comcast.crm.orgtest;
+package createOrg;
 
 import java.io.IOException;
 
@@ -6,11 +6,11 @@ import org.apache.poi.EncryptedDocumentException;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
-import com.comcast.crm.baseclass.BaseClass;
-import com.comcast.crm.objectrepositoryutility.CreateNewOrganizationPage;
-import com.comcast.crm.objectrepositoryutility.HomePage;
-import com.comcast.crm.objectrepositoryutility.OrganizationInfoPage;
-import com.comcast.crm.objectrepositoryutility.OrganizationsPage;
+import com.crm.generic.baseutility.BaseClass;
+import objectrepositoryutility.OrganizationsPage;
+import objectRepo.CreateNewOrganizationPage;
+import objectRepo.HomePage;
+import objectRepo.OrganizationInfoPage;
 
 public class CreateOrganizationTest extends BaseClass {
 
@@ -23,7 +23,7 @@ public class CreateOrganizationTest extends BaseClass {
 		 */
 
 		// Read test script data from excel file
-		String orgName = elib.getDataFromExcel("org", 7, 2) + jlib.getRandomNumber();
+		String orgName = eLib.getDataFromExcel("org", 7, 2) + jlib.getRandomNumber();
 
 		// Step 2: Navigate to Organization page
 		HomePage hp = new HomePage(driver);
@@ -47,7 +47,7 @@ public class CreateOrganizationTest extends BaseClass {
 		// Verify Header message Expected Result
 		OrganizationInfoPage oip = new OrganizationInfoPage(driver);
 		String actOrgName = oip.getHeaderMsg().getText();
-		if (actOrgName.contains(orgName)) {
+		if (actOrgName.contains(orgName)) {  
 			System.out.println(orgName + " org name is verified===PASS");
 		} else {
 			System.out.println(orgName + " org name is not verified===FAIL");
@@ -69,9 +69,9 @@ public class CreateOrganizationTest extends BaseClass {
 			throws EncryptedDocumentException, IOException, InterruptedException {
 
 		// read test script data from excel file
-		String orgName = elib.getDataFromExcel("org", 7, 2) + jlib.getRandomNumber();
-		String industry = elib.getDataFromExcel("org", 7, 3);
-		String type = elib.getDataFromExcel("org", 7, 4);
+		String orgName = eLib.getDataFromExcel("org", 7, 2) + jlib.getRandomNumber();
+		String industry = eLib.getDataFromExcel("org", 7, 3);
+		String type = eLib.getDataFromExcel("org", 7, 4);
 
 		// Step 2: Navigate to Organization page
 		HomePage hp = new HomePage(driver);
@@ -111,8 +111,8 @@ public class CreateOrganizationTest extends BaseClass {
 
 		// read test script data from excel file
 
-		String orgName = elib.getDataFromExcel("org", 4, 2) + jlib.getRandomNumber();
-		String phoneNo = elib.getDataFromExcel("org", 4, 3);
+		String orgName = eLib.getDataFromExcel("org", 4, 2) + jlib.getRandomNumber();
+		String phoneNo = eLib.getDataFromExcel("org", 4, 3);
 
 		// Step 2: Navigate to Organization page
 		HomePage hp = new HomePage(driver);
@@ -142,7 +142,7 @@ public class CreateOrganizationTest extends BaseClass {
 	public void deleteOrganizationTest() throws Throwable {
 
 		// Read test script data from excel file
-		String orgName = elib.getDataFromExcel("org", 10, 2) + jlib.getRandomNumber();
+		String orgName = eLib.getDataFromExcel("org", 10, 2) + jlib.getRandomNumber();
 
 		// Step 2: Navigate to Organization page
 		HomePage hp = new HomePage(driver);
